@@ -9,6 +9,10 @@ Adds static directional shade to blocks in Cosmic Reach.
 [coconut-scene-with-mod]: assets/coconut-scene-with-mod.png
 [coconut-scene-without-mod]: assets/coconut-scene-without-mod.png
 
+---
+
+This repository is generated from https://codeberg.org/CRModders/cosmic-quilt-example.
+
 ## How to test/build
 
 For testing in the developer environment, you can use the `./gradlew run` task
