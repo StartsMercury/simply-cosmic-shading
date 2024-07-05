@@ -23,7 +23,7 @@ base {
 
 java {
     withSourcesJar()
-    // withJavadocJar()
+    withJavadocJar()
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
