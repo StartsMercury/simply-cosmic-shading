@@ -148,7 +148,7 @@ tasks {
         options {
             this as StandardJavadocDocletOptions
 
-            source = libs.versions.java.get()
+            source = "17"
             encoding = "UTF-8"
             charSet = "UTF-8"
             memberLevel = JavadocMemberLevel.PACKAGE
