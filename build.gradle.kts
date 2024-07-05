@@ -161,12 +161,7 @@ tasks {
         }
 
         source(sourceSets.main.get().allJava)
-        source(sourceSets.named("client").get().allJava)
-        classpath = files(
-            sourceSets.main.get().compileClasspath,
-            sourceSets.named("client").get().compileClasspath
-        )
-        include("com/github/startsmercury/simply/no/shading/**")
+        classpath = files(sourceSets.main.get().compileClasspath)
         include("**/api/**")
         isFailOnError = true
     }
