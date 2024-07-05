@@ -18,7 +18,7 @@ plugins {
 base {
     group = Constants.GROUP
     archivesName = Constants.MODID
-    version = Constants.VERSION
+    version = createVersionString()
 }
 
 java {
@@ -161,4 +161,30 @@ val run: Task by tasks.getting {
         runningDir.mkdirs()
     }
     workingDir = runningDir
+}
+
+fun createVersionString(): String {
+    val builder = StringBuilder()
+
+    val isReleaseBuild = project.hasProperty("build.release")
+    val buildId = System.getenv("GITHUB_RUN_NUMBER")
+
+    if (isReleaseBuild) {
+        builder.append(Constants.VERSION)
+    } else {
+        builder.append(Constants.VERSION.substringBefore('-'))
+        builder.append("-snapshot")
+    }
+
+    builder.append("+cr").append(Constants.VERSION_COSMIC_REACH)
+
+    if (!isReleaseBuild) {
+        if (buildId != null) {
+            builder.append("-build.${buildId}")
+        } else {
+            builder.append("-local")
+        }
+    }
+
+    return builder.toString()
 }
