@@ -22,17 +22,17 @@ published version of this mod are in
 This repository is generated from
 https://codeberg.org/CRModders/cosmic-quilt-example.
 
+## Wiki
+
+For a wiki on how to use Cosmic Quilt & Quilt, please look at the [Cosmic Quilt
+wiki] .
+
 ## How to test/build
 
 For testing in the developer environment, you can use the `./gradlew run` task
 
 For building, the usual `./gradlew build` task can be used. The mod jars will be
 in the `build/libs/` folder
-
-## Wiki
-
-For a wiki on how to use Cosmic Quilt & Quilt, please look at the [Cosmic Quilt
-wiki] .
 
 ## Notes
 - Most project properties can be changed in the <tt>[gradle.properties]</tt>
