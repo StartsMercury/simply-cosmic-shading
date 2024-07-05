@@ -9,9 +9,18 @@ Adds static directional shade to blocks in Cosmic Reach.
 [coconut-scene-with-mod]: assets/coconut-scene-with-mod.png
 [coconut-scene-without-mod]: assets/coconut-scene-without-mod.png
 
+## Downloads
+
+Simply Cosmic Shading is currently only officially available on GitHub. All
+published version of this mod are in
+[Releases](https://github.com/StartsMercury/simply-no-shading/releases):
+
+> <https://github.com/StartsMercury/simply-no-shading/releases>
+
 ---
 
-This repository is generated from https://codeberg.org/CRModders/cosmic-quilt-example.
+This repository is generated from
+https://codeberg.org/CRModders/cosmic-quilt-example.
 
 ## How to test/build
 
