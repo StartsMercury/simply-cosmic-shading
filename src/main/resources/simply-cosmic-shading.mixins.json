@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "io.github.startsmercury.simply_cosmic_shading.mixin.client",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [],
+    "client": [
+        "BlockModelJsonMixin"
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    }
+}

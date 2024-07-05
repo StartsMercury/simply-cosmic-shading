@@ -1,0 +1,42 @@
+{
+    "schema_version": 1,
+
+    "quilt_loader": {
+        "group": "${mod_group}",
+        "id": "${mod_id}",
+        "version": "${mod_version}",
+
+        "intermediate_mappings" : "net.fabricmc:intermediary",
+
+        "metadata": {
+            "name": "${mod_name}",
+            "description": "Directional shade for Cosmic Reach.",
+            "contributors": {
+                "StartsMercury": "Author"
+            },
+
+            "contact": {
+                "issues": "https://github.com/StartsMercury/simply-cosmic-shading/issues",
+                "sources": "https://github.com/StartsMercury/simply-cosmic-shading"
+            },
+
+            "icon": "assets/simply-cosmic-shading/icon.png"
+        },
+
+        "entrypoints": {
+        },
+
+        "depends": [
+            {
+                "id": "cosmicquilt",
+                "versions": "*"
+            },
+            {
+                "id": "cosmicreach",
+                "versions": "*"
+            }
+        ]
+    },
+
+    "mixin": "simply-cosmic-shading.mixins.json"
+}
