@@ -126,10 +126,12 @@ tasks {
 
         // Left item is the name in the target, right is the variable name
         val replaceProperties = mutableMapOf<String, Any>(
-            "mod_version"     to Constants.VERSION,
-            "mod_group"       to Constants.GROUP,
-            "mod_name"        to Constants.DISPLAY_NAME,
-            "mod_id"          to Constants.MODID,
+            "group" to Constants.GROUP,
+            "modid" to Constants.MODID,
+            "display_name" to Constants.DISPLAY_NAME,
+            "version" to Constants.VERSION,
+
+            "cosmicreach_version" to Constants.VERSION_COSMIC_REACH,
         )
 
         inputs.properties(replaceProperties)

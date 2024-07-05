@@ -2,14 +2,14 @@
     "schema_version": 1,
 
     "quilt_loader": {
-        "group": "${mod_group}",
-        "id": "${mod_id}",
-        "version": "${mod_version}",
+        "group": "${group}",
+        "id": "${modid}",
+        "version": "${version}",
 
         "intermediate_mappings" : "net.fabricmc:intermediary",
 
         "metadata": {
-            "name": "${mod_name}",
+            "name": "${display_name}",
             "description": "Directional shade for Cosmic Reach.",
             "contributors": {
                 "StartsMercury": "Author"
@@ -28,12 +28,14 @@
 
         "depends": [
             {
-                "id": "cosmicquilt",
-                "versions": "*"
-            },
-            {
                 "id": "cosmicreach",
                 "versions": "*"
+            }
+        ],
+        "recommends": [
+            {
+                "id": "cosmicreach",
+                "versions": "${cosmicreach_version}"
             }
         ]
     },
