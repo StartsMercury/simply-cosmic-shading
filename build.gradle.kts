@@ -117,25 +117,71 @@ dependencies {
     // )
 }
 
-tasks.withType<ProcessResources> {
-    // Locations of where to inject the properties
-    val resourceTargets = listOf(
-        "quilt.mod.json",
-    )
+tasks {
+    withType<ProcessResources> {
+        // Locations of where to inject the properties
+        val resourceTargets = listOf(
+            "quilt.mod.json",
+        )
 
-    // Left item is the name in the target, right is the variable name
-    val replaceProperties = mutableMapOf<String, Any>(
-        "mod_version"     to Constants.VERSION,
-        "mod_group"       to Constants.GROUP,
-        "mod_name"        to Constants.DISPLAY_NAME,
-        "mod_id"          to Constants.MODID,
-    )
+        // Left item is the name in the target, right is the variable name
+        val replaceProperties = mutableMapOf<String, Any>(
+            "mod_version"     to Constants.VERSION,
+            "mod_group"       to Constants.GROUP,
+            "mod_name"        to Constants.DISPLAY_NAME,
+            "mod_id"          to Constants.MODID,
+        )
 
-    inputs.properties(replaceProperties)
-    replaceProperties["project"] = project
+        inputs.properties(replaceProperties)
+        replaceProperties["project"] = project
 
-    filesMatching(resourceTargets) {
-        expand(replaceProperties)
+        filesMatching(resourceTargets) {
+            expand(replaceProperties)
+        }
+    }
+
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    javadoc {
+        options {
+            this as StandardJavadocDocletOptions
+
+            source = libs.versions.java.get()
+            encoding = "UTF-8"
+            charSet = "UTF-8"
+            memberLevel = JavadocMemberLevel.PACKAGE
+            addStringOption("Xdoclint:none", "-quiet")
+            tags(
+                "apiNote:a:API Note:",
+                "implSpec:a:Implementation Requirements:",
+                "implNote:a:Implementation Note:",
+            )
+        }
+
+        source(sourceSets.main.get().allJava)
+        source(sourceSets.named("client").get().allJava)
+        classpath = files(
+            sourceSets.main.get().compileClasspath,
+            sourceSets.named("client").get().compileClasspath
+        )
+        include("com/github/startsmercury/simply/no/shading/**")
+        include("**/api/**")
+        isFailOnError = true
+    }
+
+    val run: Task by getting {
+        this as JavaExec
+
+        dependsOn("jar")
+
+        // Change the run directory
+        val runningDir = file("run/")
+        if (!runningDir.exists()) {
+            runningDir.mkdirs()
+        }
+        workingDir = runningDir
     }
 }
 
@@ -148,19 +194,6 @@ application {
         // Defines path to Cosmic Reach
         "-Dloader.gameJarPath=" + configurations.getByName("cosmicreach").asPath,
     )
-}
-
-val run: Task by tasks.getting {
-    this as JavaExec
-
-    dependsOn("jar")
-
-    // Change the run directory
-    val runningDir = file("run/")
-    if (!runningDir.exists()) {
-        runningDir.mkdirs()
-    }
-    workingDir = runningDir
 }
 
 fun createVersionString(): String {
