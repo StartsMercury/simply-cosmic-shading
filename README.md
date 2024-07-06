@@ -13,9 +13,9 @@ Adds static directional shade to blocks in Cosmic Reach.
 
 Simply Cosmic Shading is currently only officially available on GitHub. All
 published version of this mod are in
-[Releases](https://github.com/StartsMercury/simply-no-shading/releases):
+[Releases](https://github.com/StartsMercury/simply-cosmic-shading/releases):
 
-> <https://github.com/StartsMercury/simply-no-shading/releases>
+> <https://github.com/StartsMercury/simply-cosmic-shading/releases>
 
 ---
 
