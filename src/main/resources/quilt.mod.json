@@ -31,12 +31,6 @@
                 "id": "cosmicreach",
                 "versions": "*"
             }
-        ],
-        "recommends": [
-            {
-                "id": "cosmicreach",
-                "versions": "${cosmicreach_version}"
-            }
         ]
     },
 
