@@ -108,11 +108,10 @@ public abstract class BlockModelJsonMixin {
         final var red = color & 0xFF;
 
         final var shade = shadeRef.get();
-        final var luma = (int) (shade * Math.max(Math.max(red, green), blue));
         items[idx] = Color.toFloatBits(
-            Math.min(red, luma),
-            Math.min(green, luma),
-            Math.min(blue, luma),
+            (int) (shade * red),
+            (int) (shade * green),
+            (int) (shade * blue),
             (int) (shade * skyLight)
         );
     }
