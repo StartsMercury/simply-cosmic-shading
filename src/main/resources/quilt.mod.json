@@ -30,6 +30,10 @@
             {
                 "id": "cosmicreach",
                 "versions": "*"
+            },
+            {
+                "id": "cosmicquilt",
+                "versions": "*"
             }
         ]
     },
