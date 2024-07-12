@@ -1,16 +1,10 @@
-buildscript {
+pluginManagement {
     repositories {
         maven {
-            name = "JitPack"
-            url = uri("https://jitpack.io")
+            name = "CRModders"
+            url = uri("https://maven.crmodders.dev/plugins")
         }
         mavenCentral()
-    }
-    dependencies {
-        classpath(
-            group = "org.codeberg.CRModders",
-            name = "cosmic-loom",
-            version = "1.0.0"
-        )
+        gradlePluginPortal()
     }
 }

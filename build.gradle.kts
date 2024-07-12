@@ -16,7 +16,7 @@ object Constants {
 
 plugins {
     `java-library`
-    id("cosmicloom")
+    id("cosmicloom") version "1.0.0"
 }
 
 base {
