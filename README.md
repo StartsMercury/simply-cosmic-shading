@@ -2,7 +2,7 @@
 
 Adds static directional shade to blocks in Cosmic Reach.
 
-| With Shade (Mod Installed) | Without Shade (Cosmic Reach as of 0.1.39) |
+| With Shade (Mod Installed) | Without Shade (Cosmic Reach as of 0.1.41) |
 |:--------------------------:|:-----------------------------------------:|
 | ![coconut-scene-with-mod]  |       ![coconut-scene-without-mod]        |
 
