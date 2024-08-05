@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import finalforeach.cosmicreach.rendering.IMeshData;
 import finalforeach.cosmicreach.rendering.blockmodels.BlockModelJson;
 import finalforeach.cosmicreach.rendering.blockmodels.BlockModelJsonCuboidFace;
@@ -67,10 +68,46 @@ public abstract class BlockModelJsonMixin {
     }
 
     /**
+     * Capture color component index for a vertex used in applying directional
+     * shade.
+     *
+     * @param callback the injector callback
+     * @param meshData the mesh data
+     * @param idxRef shared reference storing the color component index
+     * @see #modifyLightingTintToApplyShade
+     */
+    @Inject(
+        method = "addVertices(Lfinalforeach/cosmicreach/rendering/IMeshData;IIII[S[I)V",
+        at = @At(value = "INVOKE", target = """
+            Lfinalforeach/cosmicreach/rendering/blockmodels/BlockModelJson;\
+            addVert(\
+                Lfinalforeach/cosmicreach/rendering/IMeshData;\
+                F\
+                F\
+                F\
+                F\
+                F\
+                I\
+                S\
+                I\
+                I\
+            )I\
+        """)
+    )
+    private void captureColorComponentIndex(
+        final CallbackInfo callback,
+        final @Local(ordinal = 0, argsOnly = true) IMeshData meshData,
+        final @Share("idx") LocalIntRef idxRef
+    ) {
+        idxRef.set(meshData.getVertices().size + 3);
+    }
+
+    /**
      * Modifies vertex lighting data to apply directional shade.
      *
      * @param callback the injector callback
      * @param meshData the mesh data to modify containing vertex data
+     * @param idxRef shared reference storing the color component index
      * @param shadeRef shared reference storing the shade
      * @see #calculateShade
      */
@@ -95,11 +132,12 @@ public abstract class BlockModelJsonMixin {
     private void modifyLightingTintToApplyShade(
         final CallbackInfo callback,
         final @Local(ordinal = 0, argsOnly = true) IMeshData meshData,
+        final @Share("idx") LocalIntRef idxRef,
         final @Share("shade") LocalDoubleRef shadeRef
     ) {
         final var vertices = meshData.getVertices();
         final var items = vertices.items;
-        final var idx = vertices.size - 2;
+        final var idx = idxRef.get();
 
         final var color = Float.floatToRawIntBits(items[idx]);
         final var skyLight = color >> 24 & 0xFF;
