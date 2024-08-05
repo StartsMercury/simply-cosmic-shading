@@ -1,4 +1,4 @@
-package io.github.startsmercury.simply_cosmic_shading.mixin.client;
+package io.github.startsmercury.simply_cosmic_shading.mixin.client.cosmicreach;
 
 import com.badlogic.gdx.graphics.Color;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -23,7 +23,7 @@ public abstract class BlockModelJsonMixin {
     /**
      * Calculates model face's shade.
      *
-     * @param callback mixin injector callback
+     * @param callback the mixin injector callback
      * @param face the model face to calculate shade for
      * @param shadeRef shared reference storing the shade
      * @see SimplyCosmicShading#quadDirectionalShade
@@ -51,6 +51,7 @@ public abstract class BlockModelJsonMixin {
         final @Local(ordinal = 0) BlockModelJsonCuboidFace face,
         final @Share("shade") LocalDoubleRef shadeRef
     ) {
+        if (SimplyCosmicShading.isSuppressed()) return;
         shadeRef.set(SimplyCosmicShading.quadDirectionalShade(
             face.x1,
             face.y1,
@@ -71,7 +72,7 @@ public abstract class BlockModelJsonMixin {
      * Capture color component index for a vertex used in applying directional
      * shade.
      *
-     * @param callback the injector callback
+     * @param callback the mixin injector callback
      * @param meshData the mesh data
      * @param idxRef shared reference storing the color component index
      * @see #modifyLightingTintToApplyShade
@@ -99,13 +100,14 @@ public abstract class BlockModelJsonMixin {
         final @Local(ordinal = 0, argsOnly = true) IMeshData meshData,
         final @Share("idx") LocalIntRef idxRef
     ) {
+        if (SimplyCosmicShading.isSuppressed()) return;
         idxRef.set(meshData.getVertices().size + 3);
     }
 
     /**
      * Modifies vertex lighting data to apply directional shade.
      *
-     * @param callback the injector callback
+     * @param callback the mixin injector callback
      * @param meshData the mesh data to modify containing vertex data
      * @param idxRef shared reference storing the color component index
      * @param shadeRef shared reference storing the shade
@@ -135,6 +137,8 @@ public abstract class BlockModelJsonMixin {
         final @Share("idx") LocalIntRef idxRef,
         final @Share("shade") LocalDoubleRef shadeRef
     ) {
+        if (SimplyCosmicShading.isSuppressed()) return;
+
         final var vertices = meshData.getVertices();
         final var items = vertices.items;
         final var idx = idxRef.get();

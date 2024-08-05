@@ -5,6 +5,32 @@ package io.github.startsmercury.simply_cosmic_shading.impl.client;
  */
 public final class SimplyCosmicShading {
     /**
+     * Hint if should this mod be disabled.
+     */
+    private static boolean suppressed;
+
+    /**
+     * Though this mod does not yet have a config file, some mods have
+     * incompatibility or this mod make no sense to stay active in their
+     * presence.
+     *
+     * @return boolean hint if this mod should be disabled
+     */
+    public static boolean isSuppressed() {
+        return SimplyCosmicShading.suppressed;
+    }
+
+    /**
+     * Changes {@code suppressed} hint for this mod.
+     *
+     * @param suppressed sets the hint
+     * @see #isSuppressed()
+     */
+    public static void setSuppressed(final boolean suppressed) {
+        SimplyCosmicShading.suppressed = suppressed;
+    }
+
+    /**
      * Calculates quad directional shade. Quad vertices are labeled A to D, are in
      * counter-clockwise order, and which vertex comes first doesn't matter.
      *

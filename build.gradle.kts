@@ -32,9 +32,26 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(Constants.VERSION_JAVA)
 }
 
+repositories {
+    ivy {
+        name = "GitHub Releases"
+        url = uri("https://github.com")
+        patternLayout {
+            artifact("[organization]/releases/download/[revision]/[module](-[revision])(-[classifier]).[ext]")
+            artifact("[organization]/releases/download/v[revision]/[module](-[revision])(-[classifier]).[ext]")
+            setM2compatible(true)
+        }
+        metadataSources {
+            artifact()
+        }
+    }
+}
+
 dependencies {
-    // Cosmic Reach jar
+    // Cosmic Reach
     cosmicReach(getCosmicReach(Constants.VERSION_COSMIC_REACH))
+
+    // Cosmic Quilt
     modImplementation(getCosmicQuilt(Constants.VERSION_COSMIC_QUILT))
 
     // Mod Menu
@@ -43,6 +60,13 @@ dependencies {
     //     name = "modmenu",
     //     version = Constants.VERSION_MODMENU,
     // )
+
+    // Simply Shaders
+    compileOnly(
+        group = "Shfloop.SimplyShaders",
+        name = "SimplyShaders",
+        version = "1.0.1",
+    )
 }
 
 tasks {
