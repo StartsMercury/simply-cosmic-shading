@@ -12,6 +12,7 @@ object Constants {
     const val VERSION_COSMIC_QUILT = "2.1.1"
     const val VERSION_JAVA = "17"
     const val VERSION_MODMENU = "1.0.5"
+    const val VERSION_SIMPLY_SHADERS = "1.0.2"
 }
 
 plugins {
@@ -65,7 +66,7 @@ dependencies {
     compileOnly(
         group = "Shfloop.SimplyShaders",
         name = "SimplyShaders",
-        version = "1.0.1",
+        version = Constants.VERSION_SIMPLY_SHADERS,
     )
 }
 
