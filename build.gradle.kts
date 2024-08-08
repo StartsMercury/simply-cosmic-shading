@@ -12,7 +12,6 @@ object Constants {
     const val VERSION_COSMIC_QUILT = "2.1.1"
     const val VERSION_JAVA = "17"
     const val VERSION_MODMENU = "1.0.5"
-    const val VERSION_SIMPLY_SHADERS = "1.0.2"
 }
 
 plugins {
@@ -38,8 +37,10 @@ repositories {
         name = "GitHub Releases"
         url = uri("https://github.com")
         patternLayout {
-            artifact("[organization]/releases/download/[revision]/[module](-[revision])(-[classifier]).[ext]")
-            artifact("[organization]/releases/download/v[revision]/[module](-[revision])(-[classifier]).[ext]")
+            artifact("[organization]/releases/download/[revision]/[module](-[classifier]).[ext]")
+            artifact("[organization]/releases/download/[revision]/[module]-[revision](-[classifier]).[ext]")
+            artifact("[organization]/releases/download/v[revision]/[module](-[classifier]).[ext]")
+            artifact("[organization]/releases/download/v[revision]/[module]-[revision](-[classifier]).[ext]")
             setM2compatible(true)
         }
         metadataSources {
@@ -65,8 +66,8 @@ dependencies {
     // Simply Shaders
     compileOnly(
         group = "Shfloop.SimplyShaders",
-        name = "SimplyShaders",
-        version = Constants.VERSION_SIMPLY_SHADERS,
+        name = "SimplyShaders-1.0.2",
+        version = "1.02",
     )
 }
 
