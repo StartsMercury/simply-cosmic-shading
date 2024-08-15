@@ -8,7 +8,9 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
+    const val VERSION_KIND_COSMIC_REACH = "pre-alpha"
     const val VERSION_COSMIC_REACH = "0.1.45"
+
     const val VERSION_COSMIC_QUILT = "2.1.1"
     const val VERSION_JAVA = "17"
     const val VERSION_MODMENU = "1.0.5"
@@ -16,7 +18,7 @@ object Constants {
 
 plugins {
     `java-library`
-    id("cosmicloom") version "1.0.0"
+    id("cosmicloom") version "26b522b8a6"
 }
 
 base {
@@ -51,7 +53,7 @@ repositories {
 
 dependencies {
     // Cosmic Reach
-    cosmicReach(getCosmicReach(Constants.VERSION_COSMIC_REACH))
+    cosmicReach(getCosmicReach(Constants.VERSION_KIND_COSMIC_REACH, Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
     modImplementation(getCosmicQuilt(Constants.VERSION_COSMIC_QUILT))
