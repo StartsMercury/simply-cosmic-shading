@@ -8,17 +8,14 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_KIND_COSMIC_REACH = "pre-alpha"
-    const val VERSION_COSMIC_REACH = "0.1.45"
-
-    const val VERSION_COSMIC_QUILT = "2.1.1"
+    const val VERSION_COSMIC_REACH = "0.1.47"
     const val VERSION_JAVA = "17"
-    const val VERSION_MODMENU = "1.0.5"
 }
 
 plugins {
     `java-library`
-    id("cosmicloom") version "26b522b8a6"
+    `maven-publish`
+    id("cosmicloom")
 }
 
 base {
@@ -34,42 +31,25 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(Constants.VERSION_JAVA)
 }
 
-repositories {
-    ivy {
-        name = "GitHub Releases"
-        url = uri("https://github.com")
-        patternLayout {
-            artifact("[organization]/releases/download/[revision]/[module](-[classifier]).[ext]")
-            artifact("[organization]/releases/download/[revision]/[module]-[revision](-[classifier]).[ext]")
-            artifact("[organization]/releases/download/v[revision]/[module](-[classifier]).[ext]")
-            artifact("[organization]/releases/download/v[revision]/[module]-[revision](-[classifier]).[ext]")
-            setM2compatible(true)
-        }
-        metadataSources {
-            artifact()
-        }
-    }
-}
-
 dependencies {
     // Cosmic Reach
-    cosmicReach(getCosmicReach(Constants.VERSION_KIND_COSMIC_REACH, Constants.VERSION_COSMIC_REACH))
+    cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt(Constants.VERSION_COSMIC_QUILT))
+    modImplementation(getCosmicQuilt("2.1.1"))
 
     // Mod Menu
-    // modImplementation(
-    //     group = "dev.crmodders",
-    //     name = "modmenu",
-    //     version = Constants.VERSION_MODMENU,
-    // )
+    modImplementation(
+        group = "org.codeberg.CRModders",
+        name = "modmenu",
+        version = "1.0.7",
+    )
 
-    // Simply Shaders
+    // Simply Shaders (v1.0.5)
     compileOnly(
-        group = "Shfloop.SimplyShaders",
-        name = "SimplyShaders-1.0.2",
-        version = "1.02",
+        group = "com.github.Shfloop",
+        name = "SimplyShaders",
+        version = "0e8e82a51cc9d40f4f461ed92aaeef762284d34a",
     )
 }
 
@@ -150,3 +130,4 @@ fun createVersionString(): String {
 
     return builder.toString()
 }
+
