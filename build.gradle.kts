@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_COSMIC_REACH = "0.1.47"
+    const val VERSION_COSMIC_REACH = "0.1.48"
     const val VERSION_JAVA = "17"
 }
 
