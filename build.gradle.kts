@@ -110,7 +110,7 @@ publishing {
         withType<MavenPublication> {
             groupId = Constants.GROUP
             artifactId = Constants.MODID
-            version = createVersionString()
+            version = project.version.toString()
         }
     }
 }
