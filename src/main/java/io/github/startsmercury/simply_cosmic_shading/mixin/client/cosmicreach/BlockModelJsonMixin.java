@@ -34,9 +34,7 @@ public abstract class BlockModelJsonMixin {
             Lfinalforeach/cosmicreach/rendering/blockmodels/BlockModelJson;\
             addVert(\
                 Lfinalforeach/cosmicreach/rendering/IMeshData;\
-                F\
-                F\
-                F\
+                I\
                 F\
                 F\
                 I\
@@ -83,9 +81,7 @@ public abstract class BlockModelJsonMixin {
             Lfinalforeach/cosmicreach/rendering/blockmodels/BlockModelJson;\
             addVert(\
                 Lfinalforeach/cosmicreach/rendering/IMeshData;\
-                F\
-                F\
-                F\
+                I\
                 F\
                 F\
                 I\
@@ -101,7 +97,7 @@ public abstract class BlockModelJsonMixin {
         final @Share("idx") LocalIntRef idxRef
     ) {
         if (SimplyCosmicShading.isSuppressed()) return;
-        idxRef.set(meshData.getVertices().size + 3);
+        idxRef.set(meshData.getVertices().size + 1);
     }
 
     /**
@@ -119,9 +115,7 @@ public abstract class BlockModelJsonMixin {
             Lfinalforeach/cosmicreach/rendering/blockmodels/BlockModelJson;\
             addVert(\
                 Lfinalforeach/cosmicreach/rendering/IMeshData;\
-                F\
-                F\
-                F\
+                I\
                 F\
                 F\
                 I\

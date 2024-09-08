@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_COSMIC_REACH = "0.2.0"
+    const val VERSION_COSMIC_REACH = "0.2.1"
     const val VERSION_JAVA = "17"
 }
 
@@ -108,7 +108,7 @@ tasks {
 publishing {
     publications {
         withType<MavenPublication> {
-            groupId = Constants.GROUP
+            groupId = group.toString()
             artifactId = Constants.MODID
             version = project.version.toString()
         }
