@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_COSMIC_REACH = "0.2.1"
+    const val VERSION_COSMIC_REACH = "0.2.2"
     const val VERSION_JAVA = "17"
 }
 
@@ -18,9 +18,15 @@ plugins {
     id("cosmicloom")
 }
 
-base {
+if (group == path.substring(1).replace(':', '.')) {
     group = Constants.GROUP
+}
+
+base {
     archivesName = Constants.MODID
+}
+
+if (Project.DEFAULT_VERSION == version) {
     version = createVersionString()
 }
 
