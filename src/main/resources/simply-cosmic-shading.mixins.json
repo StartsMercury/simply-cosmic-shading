@@ -5,8 +5,9 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [],
     "client": [
-        "simply_shaders.ShaderSelectionMenuMixin",
-        "cosmicreach.BlockModelJsonMixin"
+        "cosmicreach.BlockModelJsonMixin",
+        "cosmicreach.GameShaderMixin",
+        "simply_shaders.ShaderSelectionMenuMixin"
     ],
     "injectors": {
         "defaultRequire": 1

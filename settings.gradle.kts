@@ -11,8 +11,11 @@ buildscript {
         classpath(
             group = "org.codeberg.CRModders",
             name = "cosmic-loom",
-            version = "9a9771504f91bedb731eb7c71029b87e25a18f2c",
+            version = "1.0.2",
         )
     }
 }
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}

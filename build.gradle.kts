@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_COSMIC_REACH = "0.1.50"
+    const val VERSION_COSMIC_REACH = "0.2.0"
     const val VERSION_JAVA = "17"
 }
 
@@ -36,7 +36,7 @@ dependencies {
     cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt("2.1.1"))
+    modImplementation(getCosmicQuilt("2.2.0"))
 
     // Mod Menu
     modImplementation(
@@ -45,11 +45,11 @@ dependencies {
         version = "1.0.7",
     )
 
-    // Simply Shaders (v1.0.5)
+    // Simply Shaders (v1.1.2)
     compileOnly(
         group = "com.github.Shfloop",
         name = "SimplyShaders",
-        version = "0e8e82a51cc9d40f4f461ed92aaeef762284d34a",
+        version = "PR3-SNAPSHOT",
     )
 }
 
@@ -102,6 +102,16 @@ tasks {
         classpath = files(sourceSets.main.get().compileClasspath)
         include("**/api/**")
         isFailOnError = true
+    }
+}
+
+publishing {
+    publications {
+        withType<MavenPublication> {
+            groupId = Constants.GROUP
+            artifactId = Constants.MODID
+            version = createVersionString()
+        }
     }
 }
 
