@@ -15,8 +15,8 @@ Simply Cosmic Shading is only officially available on CRRM and GitHub. All
 published version of this mod are both in
 [CRRM](https://www.crmm.tech/mod/simply-cosmic-shading/versions) and [GitHub Releases](https://github.com/StartsMercury/simply-cosmic-shading/releases):
 
-> <https://www.crmm.tech/mod/simply-cosmic-shading/versions>
-> <https://github.com/StartsMercury/simply-cosmic-shading/releases>
+> * <https://www.crmm.tech/mod/simply-cosmic-shading/versions>
+> * <https://github.com/StartsMercury/simply-cosmic-shading/releases>
 
 ---
 
