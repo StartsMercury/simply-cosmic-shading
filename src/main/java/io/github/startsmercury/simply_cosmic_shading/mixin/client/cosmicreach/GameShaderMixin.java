@@ -20,7 +20,7 @@ public abstract class GameShaderMixin {
 
     @ModifyReturnValue(at = @At("RETURN"), method = """
         loadShaderFile(\
-            Ljava/lang/String;\
+            Lfinalforeach/cosmicreach/util/Identifier;\
             Lfinalforeach/cosmicreach/rendering/shaders/GameShader$ShaderType;\
         )Ljava/lang/String;\
     """)
