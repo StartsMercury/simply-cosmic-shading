@@ -39,7 +39,7 @@ jobs:
           file_glob: true
 
       - name: Upload Binaries to CRMM
-        uses: StartsMercury/cr-publish@cc2520a560713b7044e57b4548c0ccc21f3555c4
+        uses: StartsMercury/cr-publish@4595a67f80014718a1280d34846eab0040018ec1
         with:
           crmm-id: J-sUmTnO6DEFC6d8o4
           crmm-token: ${{ secrets.CRMM_TOKEN }}
