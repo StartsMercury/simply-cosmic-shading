@@ -20,7 +20,7 @@
                 "sources": "https://github.com/StartsMercury/simply-cosmic-shading"
             },
 
-            "icon": "assets/simply-cosmic-shading/icon.png"
+            "icon": "simply-cosmic-shading/textures/icon.png"
         },
 
         "entrypoints": {
