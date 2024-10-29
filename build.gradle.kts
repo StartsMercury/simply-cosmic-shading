@@ -37,6 +37,21 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(Constants.VERSION_JAVA)
 }
 
+repositories {
+    ivy {
+        name = "GitHub Releases"
+        url = uri("https://github.com")
+        patternLayout {
+            artifact("[organization]/releases/download/[revision]/[module](-[classifier]).[ext]")
+            artifact("[organization]/releases/download/[revision]/[module]-[revision](-[classifier]).[ext]")
+            setM2compatible(true)
+        }
+        metadataSources {
+            artifact()
+        }
+    }
+}
+
 dependencies {
     // Cosmic Reach
     cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
@@ -51,11 +66,11 @@ dependencies {
         version = "1.0.8",
     )
 
-    // Simply Shaders (v1.1.2)
+    // Simply Shaders
     compileOnly(
-        group = "com.github.Shfloop",
-        name = "SimplyShaders",
-        version = "PR3-SNAPSHOT",
+        group = "Shfloop.SimplyShaders",
+        name = "SimplyShaders-1.1.4",
+        version = "v1.1.4+0.3.1",
     )
 }
 
