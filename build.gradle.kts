@@ -69,8 +69,8 @@ dependencies {
     // Simply Shaders
     compileOnly(
         group = "Shfloop.SimplyShaders",
-        name = "SimplyShaders-1.1.4",
-        version = "v1.1.4+0.3.1",
+        name = "SimplyShadersQ-1.1.7",
+        version = "v1.1.7+0.3.16",
     )
 }
 
