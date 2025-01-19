@@ -63,7 +63,7 @@ dependencies {
     modImplementation(
         group = "org.codeberg.CRModders",
         name = "modmenu",
-        version = "1.0.8",
+        version = "1.0.9",
     )
 
     // Simply Shaders
