@@ -1,5 +1,7 @@
 package io.github.startsmercury.simply_cosmic_shading.mixin.client.cosmicreach;
 
+import static io.github.startsmercury.simply_cosmic_shading.impl.client.SimplyCosmicShading.STATE;
+
 import com.badlogic.gdx.graphics.Color;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
@@ -8,9 +10,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import finalforeach.cosmicreach.rendering.IMeshData;
 import finalforeach.cosmicreach.rendering.blockmodels.BlockModelJson;
 import finalforeach.cosmicreach.rendering.blockmodels.BlockModelJsonCuboidFace;
-import io.github.startsmercury.simply_cosmic_shading.impl.client.SimplyCosmicShading;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.StaticShading;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
@@ -26,7 +29,7 @@ public abstract class BlockModelJsonMixin {
      * @param callback the mixin injector callback
      * @param face the model face to calculate shade for
      * @param shadeRef shared reference storing the shade
-     * @see SimplyCosmicShading#quadDirectionalShade
+     * @see StaticShading#quadDirectionalShade
      */
     @Inject(
         method = "addVertices(Lfinalforeach/cosmicreach/rendering/IMeshData;IIII[S[I)V",
@@ -46,11 +49,12 @@ public abstract class BlockModelJsonMixin {
     )
     private void calculateShade(
         final CallbackInfo callback,
+        final @Local(ordinal = 0, argsOnly = true) IMeshData meshData,
         final @Local(ordinal = 0) BlockModelJsonCuboidFace face,
         final @Share("shade") LocalDoubleRef shadeRef
     ) {
-        if (SimplyCosmicShading.isSuppressed()) return;
-        shadeRef.set(SimplyCosmicShading.quadDirectionalShade(
+        if (STATE.isSuppressed()) return;
+        shadeRef.set(STATE.getStaticShading().quadDirectionalShade(
             face.x1,
             face.y1,
             face.z1,
@@ -96,7 +100,7 @@ public abstract class BlockModelJsonMixin {
         final @Local(ordinal = 0, argsOnly = true) IMeshData meshData,
         final @Share("idx") LocalIntRef idxRef
     ) {
-        if (SimplyCosmicShading.isSuppressed()) return;
+        if (STATE.isSuppressed()) return;
         idxRef.set(meshData.getVertices().size + 1);
     }
 
@@ -131,7 +135,7 @@ public abstract class BlockModelJsonMixin {
         final @Share("idx") LocalIntRef idxRef,
         final @Share("shade") LocalDoubleRef shadeRef
     ) {
-        if (SimplyCosmicShading.isSuppressed()) return;
+        if (STATE.isSuppressed()) return;
 
         final var vertices = meshData.getVertices();
         final var items = vertices.items;
