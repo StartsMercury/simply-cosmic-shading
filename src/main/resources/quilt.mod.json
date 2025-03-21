@@ -24,6 +24,8 @@
         },
 
         "entrypoints": {
+            "client_init": "io.github.startsmercury.simply_cosmic_shading.impl.client.entrypoint.SimplyCosmicShadingClientInitializer",
+            "modmenu": "io.github.startsmercury.simply_cosmic_shading.impl.client.entrypoint.SimplyCosmicShadingModMenuInitializer"
         },
 
         "depends": [
@@ -38,5 +40,6 @@
         ]
     },
 
+    "accessWidener": "simply-cosmic-shading.accesswidener",
     "mixin": "simply-cosmic-shading.mixins.json"
 }

@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ShaderSelectionMenu.class)
 public class ShaderSelectionMenuMixin {
     /**
-     * {@linkplain SimplyCosmicShading.GlobalState#isSuppressed()} Suppresses
+     * {@linkplain SimplyCosmicShading#isSuppressed()} Suppresses
      * or disables Simply Cosmic Shading if shaders are enabled.
      *
      * @param callback the mixin injector callback
      */
     @Inject(method = "applyShaderPackSelection()V", at = @At("RETURN"))
     private void updateSuppressed(final CallbackInfo callback) {
-        SimplyCosmicShading.STATE.setSuppressed(Shadows.shaders_on);
+        SimplyCosmicShading.getInstance().setSuppressed(Shadows.shaders_on);
     }
 }

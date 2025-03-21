@@ -30,6 +30,10 @@ if (Project.DEFAULT_VERSION == version) {
     version = createVersionString()
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/simply-cosmic-shading.accesswidener")
+}
+
 java {
     withSourcesJar()
     withJavadocJar()

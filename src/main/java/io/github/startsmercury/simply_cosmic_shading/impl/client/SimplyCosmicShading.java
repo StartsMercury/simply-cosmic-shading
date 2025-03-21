@@ -1,58 +1,130 @@
 package io.github.startsmercury.simply_cosmic_shading.impl.client;
 
+import finalforeach.cosmicreach.util.Identifier;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.config.ConfigV0;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.config.LatestConfigParser;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.util.Objects;
+import org.quiltmc.loader.api.QuiltLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Utility class for Simply Cosmic Shading.
  */
 public final class SimplyCosmicShading {
-    public final static class GlobalState {
-        private GlobalState() {}
+    public static final String MOD_NAME = "Simply Cosmic Shading";
+    public static final String MOD_ID = "simply-cosmic-shading";
+    public static final String CONFIG = MOD_ID + ".json";
 
-        /**
-         * Hint if should this mod be disabled.
-         */
-        private boolean suppressed;
+    private static SimplyCosmicShading instance;
 
-        /**
-         * Though this mod does not yet have a config file, some mods have
-         * incompatibility or this mod make no sense to stay active in their
-         * presence.
-         *
-         * @return boolean hint if this mod should be disabled
-         */
-        public boolean isSuppressed() {
-            return this.suppressed;
+    public static SimplyCosmicShading getInstance() {
+        final var instance = SimplyCosmicShading.instance;
+        if (instance == null) {
+            final var message = SimplyCosmicShading.class.getName() + " is not yet initialized";
+            throw new IllegalStateException(message);
         }
+        return instance;
+    }
 
-        /**
-         * Changes {@code suppressed} hint for this mod.
-         *
-         * @param suppressed sets the hint
-         * @see #isSuppressed()
-         */
-        public void setSuppressed(final boolean suppressed) {
-            this.suppressed = suppressed;
+    public static boolean isInitialized() {
+        return instance != null;
+    }
+
+    public static void initSingleton() {
+        if (instance != null) {
+            final var message = SimplyCosmicShading.class.getName() + "is already initialized";
+            throw new IllegalStateException(message);
         }
+        instance = new SimplyCosmicShading();
+    }
 
-        private StaticShading staticShading = StaticShading.WORLD;
+    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockShader;
 
-        public StaticShading getStaticShading() {
-            return this.staticShading;
-        }
+    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockItemShader;
 
-        @Deprecated
-        @SuppressWarnings("DeprecatedIsStillUsed")
-        public void setStaticShadingUnchecked(final StaticShading staticShading) {
-            this.staticShading = staticShading;
+    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader waterBlockItemShader;
+
+    private final LatestConfigParser configParser = new LatestConfigParser();
+
+    private final Logger logger = LoggerFactory.getLogger(MOD_NAME);
+
+    private ConfigV0 config = new ConfigV0();
+
+    private boolean suppressed;
+
+    /**
+     * Creates a new instance of SimplyCosmicShading.
+     */
+    private SimplyCosmicShading() {
+        defaultBlockShader = new ChunkShader(
+            Identifier.of("shaders/chunk.vert.glsl"),
+            Identifier.of("shaders/chunk.frag.glsl")
+        );
+        defaultBlockItemShader = new ItemShader(
+            Identifier.of("shaders/chunk.vert.glsl"),
+            Identifier.of("shaders/chunk.frag.glsl")
+        );
+        waterBlockItemShader = new WaterItemShader(
+            Identifier.of("shaders/chunk-water.vert.glsl"),
+            Identifier.of("shaders/chunk-water.frag.glsl")
+        );
+    }
+
+    public finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockShader() {
+        return this.defaultBlockShader;
+    }
+
+    public finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockItemShader() {
+        return this.defaultBlockItemShader;
+    }
+
+    public finalforeach.cosmicreach.rendering.shaders.ChunkShader waterBlockItemShader() {
+        return this.waterBlockItemShader;
+    }
+
+    public ConfigV0 getConfig() {
+        return this.config;
+    }
+
+    public void setConfig(final ConfigV0 config) {
+        Objects.requireNonNull(config, "Parameter config is null");
+        this.config = config;
+    }
+
+    public void loadConfig() {
+        try (final var reader = Files.newBufferedReader(QuiltLoader.getConfigDir().resolve(CONFIG))) {
+            this.setConfig(this.configParser.read(reader));
+            this.logger.info("[{}] Successfully loaded config", MOD_NAME);
+        } catch (final NoSuchFileException cause) {
+            this.saveConfig("[{}] Successfully created config", "[{}] Unable to create config");
+        } catch (final IOException | RuntimeException cause) {
+            this.logger.warn("[{}] Unable to load config", MOD_NAME, cause);
+            this.saveConfig("[{}] Successfully recreated config", "[{}] Unable to recreate config");
         }
     }
 
-    public static final GlobalState STATE = new GlobalState();
+    public void saveConfig() {
+        this.saveConfig("[{}] Successfully saved config", "[{}] Unable to save config");
+    }
 
-    /**
-     * @deprecated Utility class need not be instantiated.
-     *
-     * Creates a new instance of SimplyCosmicShading.
-     */
-    @Deprecated
-    private SimplyCosmicShading() {}
+    private void saveConfig(final String success, final String error) {
+        try (final var writer = Files.newBufferedWriter(QuiltLoader.getConfigDir().resolve(CONFIG))) {
+            this.configParser.write(writer, this.config);
+            this.logger.info(success, MOD_NAME);
+        } catch (final IOException | RuntimeException cause) {
+            this.logger.warn(error, MOD_NAME, cause);
+        }
+    }
+
+    public boolean isSuppressed() {
+        return this.suppressed;
+    }
+
+    public void setSuppressed(final boolean suppressed) {
+        this.suppressed = suppressed;
+    }
 }
