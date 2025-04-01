@@ -1,9 +1,9 @@
-package io.github.startsmercury.simply_cosmic_shading.impl.client;
+package io.github.startsmercury.simply_cosmic_shading.impl.client.shader;
 
 import finalforeach.cosmicreach.rendering.shaders.ChunkShader;
 import finalforeach.cosmicreach.util.Identifier;
 
-final class ItemShader extends ChunkShader {
+public class ItemShader extends ChunkShader {
     public ItemShader(final Identifier vertFile, final Identifier fragFile) {
         super(vertFile, fragFile);
     }

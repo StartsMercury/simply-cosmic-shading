@@ -1,8 +1,12 @@
 package io.github.startsmercury.simply_cosmic_shading.impl.client;
 
+import finalforeach.cosmicreach.rendering.shaders.ChunkShader;
 import finalforeach.cosmicreach.util.Identifier;
 import io.github.startsmercury.simply_cosmic_shading.impl.client.config.ConfigV0;
 import io.github.startsmercury.simply_cosmic_shading.impl.client.config.LatestConfigParser;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.shader.BlockShader;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.shader.ItemShader;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.shader.WaterItemShader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -42,11 +46,11 @@ public final class SimplyCosmicShading {
         instance = new SimplyCosmicShading();
     }
 
-    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockShader;
+    private final ChunkShader defaultBlockShader;
 
-    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockItemShader;
+    private final ChunkShader defaultBlockItemShader;
 
-    private final finalforeach.cosmicreach.rendering.shaders.ChunkShader waterBlockItemShader;
+    private final ChunkShader waterBlockItemShader;
 
     private final LatestConfigParser configParser = new LatestConfigParser();
 
@@ -60,7 +64,7 @@ public final class SimplyCosmicShading {
      * Creates a new instance of SimplyCosmicShading.
      */
     private SimplyCosmicShading() {
-        defaultBlockShader = new ChunkShader(
+        defaultBlockShader = new BlockShader(
             Identifier.of("shaders/chunk.vert.glsl"),
             Identifier.of("shaders/chunk.frag.glsl")
         );
@@ -74,15 +78,15 @@ public final class SimplyCosmicShading {
         );
     }
 
-    public finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockShader() {
+    public ChunkShader defaultBlockShader() {
         return this.defaultBlockShader;
     }
 
-    public finalforeach.cosmicreach.rendering.shaders.ChunkShader defaultBlockItemShader() {
+    public ChunkShader defaultBlockItemShader() {
         return this.defaultBlockItemShader;
     }
 
-    public finalforeach.cosmicreach.rendering.shaders.ChunkShader waterBlockItemShader() {
+    public ChunkShader waterBlockItemShader() {
         return this.waterBlockItemShader;
     }
 
