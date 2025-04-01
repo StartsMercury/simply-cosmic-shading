@@ -15,6 +15,7 @@ import finalforeach.cosmicreach.gamestates.InGame;
 import finalforeach.cosmicreach.lang.Lang;
 import finalforeach.cosmicreach.ui.widgets.CRButton;
 import io.github.startsmercury.simply_cosmic_shading.impl.client.SimplyCosmicShading;
+import io.github.startsmercury.simply_cosmic_shading.impl.client.util.LangUtil;
 
 public class ConfigGameState extends GameState {
     private final SimplyCosmicShading simplyCosmicShading;
@@ -22,8 +23,8 @@ public class ConfigGameState extends GameState {
     private final String on;
     private final String off;
 
-    private Button terrainBlockShadingEnabledButton;
-    private Button blockItemShadingEnabledButton;
+    private Button terrainBlockShadingButton;
+    private Button blockItemShadingButton;
 
     public ConfigGameState(
         final SimplyCosmicShading simplyCosmicShading,
@@ -41,10 +42,14 @@ public class ConfigGameState extends GameState {
 
         final var config = this.simplyCosmicShading.getConfig();
 
-        this.terrainBlockShadingEnabledButton =
-            this.newToggle("Terrain Block Shading: ", config.terrainBlockShadingEnabled());
-        this.blockItemShadingEnabledButton =
-            this.newToggle("Block Item Shading: ", config.blockItemShadingEnabled());
+        this.terrainBlockShadingButton = this.newToggle(
+            LangUtil.get("simply-cosmic-shading:terrainBlockShadingButton", "Terrain Block Shading: "),
+            config.terrainBlockShadingEnabled()
+        );
+        this.blockItemShadingButton = this.newToggle(
+            LangUtil.get("simply-cosmic-shading:blockItemShadingButton", "Block Item Shading: "),
+            config.blockItemShadingEnabled()
+        );
 
         final var doneButton = new CRButton(Lang.get("doneButton"));
         final var optionsTable = new Table();
@@ -53,7 +58,7 @@ public class ConfigGameState extends GameState {
         final var table = new Table();
         table.setFillParent(true);
 
-        optionsTable.add(terrainBlockShadingEnabledButton, blockItemShadingEnabledButton);
+        optionsTable.add(terrainBlockShadingButton, blockItemShadingButton);
 
         table.add(optionsTable);
         table.row();
@@ -105,8 +110,8 @@ public class ConfigGameState extends GameState {
 
         final var oldConfig = this.simplyCosmicShading.getConfig();
 
-        final var terrainBlockShadingEnabled = this.terrainBlockShadingEnabledButton.isChecked();
-        final var blockItemShadingEnabled = this.blockItemShadingEnabledButton.isChecked();
+        final var terrainBlockShadingEnabled = this.terrainBlockShadingButton.isChecked();
+        final var blockItemShadingEnabled = this.blockItemShadingButton.isChecked();
 
         this.simplyCosmicShading.setConfig(new ConfigV0(
             terrainBlockShadingEnabled,
