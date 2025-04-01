@@ -1,5 +1,6 @@
 import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicQuilt
 import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicReach
+import dev.crmodders.cosmicloom.task.tasks.RunClientTask
 
 object Constants {
     const val GROUP = "io.github.startsmercury"
@@ -54,6 +55,21 @@ repositories {
             artifact()
         }
     }
+
+    ivy {
+        name = "CRMM API"
+        url = uri("https://api.crmm.tech/")
+        patternLayout {
+            artifact("[organization]/version/[revision]/[module](-[classifier]).[ext]")
+            setM2compatible(true)
+        }
+        metadataSources {
+            artifact()
+        }
+        content {
+            includeGroupAndSubgroups("api.project")
+        }
+    }
 }
 
 dependencies {
@@ -72,9 +88,9 @@ dependencies {
 
     // Simply Shaders
     compileOnly(
-        group = "Shfloop.SimplyShaders",
-        name = "SimplyShadersQ-1.1.7",
-        version = "v1.1.7+0.3.16",
+        group = "api.project.simplyshaders",
+        name = "SimplyShadersQ-1.2.1",
+        version = "1.2.1q",
     )
 }
 
@@ -164,3 +180,6 @@ fun createVersionString(): String {
     return builder.toString()
 }
 
+val runClient by tasks.existing(RunClientTask::class) {
+    jvmArgs("-Dmixin.debug=true")
+}
