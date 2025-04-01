@@ -1,6 +1,17 @@
 import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicQuilt
 import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicReach
 import dev.crmodders.cosmicloom.task.tasks.RunClientTask
+import org.apache.commons.lang3.StringUtils
+
+buildscript {
+    dependencies {
+        classpath(
+            group = "org.apache.commons",
+            name = "commons-lang3",
+            version = "3.17.0",
+        )
+    }
+}
 
 object Constants {
     const val GROUP = "io.github.startsmercury"
@@ -84,13 +95,6 @@ dependencies {
         group = "org.codeberg.CRModders",
         name = "modmenu",
         version = "1.0.9",
-    )
-
-    // Simply Shaders
-    compileOnly(
-        group = "api.project.simplyshaders",
-        name = "SimplyShadersQ-1.2.1",
-        version = "1.2.1q",
     )
 }
 
@@ -180,6 +184,43 @@ fun createVersionString(): String {
     return builder.toString()
 }
 
-val runClient by tasks.existing(RunClientTask::class) {
+tasks.withType(RunClientTask::class) {
     jvmArgs("-Dmixin.debug=true")
+}
+
+createCompatTest("fluxResourceLoader", mapOf(
+    "group" to "com.github.CRModders.FluxAPI",
+    "name" to "flux-resource-loader-v0",
+    "version" to "d149c5d1305904199d7125d0479ca37323f49533",
+))
+createCompatTest("simplyShaders", mapOf(
+    "group" to "api.project.simplyshaders",
+    "name" to "SimplyShadersQ-1.2.1",
+    "version" to "1.2.1q",
+))
+
+fun createCompatTest(name: String, objectNotation: Any, vararg dependencyNotations: Any) {
+    val config = configurations.register(name)
+    val configClasspath = configurations.register("${name}Classpath") {
+        extendsFrom(config.get())
+    }
+
+    configurations {
+        val compileOnly by getting {
+            extendsFrom(config.get())
+        }
+    }
+
+    dependencies {
+        add(name, objectNotation)
+        dependencyNotations.forEach {
+            add("${name}Classpath", it)
+        }
+    }
+
+    afterEvaluate {
+        tasks.register<RunClientTask>("run${StringUtils.capitalize(name)}") {
+            jvmArgs("-Dfabric.addMods=${configClasspath.get().files.joinToString(File.pathSeparator)}")
+        }
+    }
 }
