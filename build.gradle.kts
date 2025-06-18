@@ -21,7 +21,7 @@ object Constants {
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
     const val VERSION_COSMIC_REACH = "0.4.10"
-    const val VERSION_JAVA = "17"
+    const val VERSION_JAVA = "24"
 }
 
 plugins {
