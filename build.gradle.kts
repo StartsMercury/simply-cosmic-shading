@@ -20,7 +20,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
-    const val VERSION_COSMIC_REACH = "0.4.10"
+    const val VERSION_COSMIC_REACH = "0.4.11"
     const val VERSION_JAVA = "24"
 }
 
@@ -88,13 +88,13 @@ dependencies {
     cosmicReach(getCosmicReach("alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt("2.3.2"))
+    modImplementation(getCosmicQuilt("60b1044fb3"))
 
     // Mod Menu
     modImplementation(
         group = "org.codeberg.CRModders",
         name = "modmenu",
-        version = "1.0.9",
+        version = "2d0eae1916",
     )
 }
 
@@ -131,7 +131,7 @@ tasks {
         options {
             this as StandardJavadocDocletOptions
 
-            source = "17"
+            source = "24"
             encoding = "UTF-8"
             charSet = "UTF-8"
             memberLevel = JavadocMemberLevel.PACKAGE
@@ -147,6 +147,10 @@ tasks {
         classpath = files(sourceSets.main.get().compileClasspath)
         include("**/api/**")
         isFailOnError = true
+    }
+
+    withType<dev.crmodders.cosmicloom.task.abstracts.AbstractRunTask> {
+        javaLauncher = project.javaToolchains.launcherFor(java.toolchain)
     }
 }
 
