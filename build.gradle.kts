@@ -16,7 +16,7 @@ buildscript {
 object Constants {
     const val GROUP = "io.github.startsmercury"
     const val MODID = "simply-cosmic-shading"
-    const val VERSION = "0.3.0"
+    const val VERSION = "0.3.1"
 
     const val DISPLAY_NAME = "Simply Cosmic Shading"
 
