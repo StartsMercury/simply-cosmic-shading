@@ -40,6 +40,6 @@
         ]
     },
 
-    "accessWidener": "simply-cosmic-shading.accesswidener",
+    "access_widener": "simply-cosmic-shading.accesswidener",
     "mixin": "simply-cosmic-shading.mixins.json"
 }
